@@ -32,6 +32,7 @@ module Css exposing
     , FilterFunction, FilterFunctionSupported
     , Length, LengthSupported
     , Color, ColorSupported
+    , ColorSpace
     , LineStyle, LineStyleSupported
     , LineWidth, LineWidthSupported
     , Time, TimeSupported
@@ -45,8 +46,9 @@ module Css exposing
     , fr, minmax, fitContentTo
     , deg, grad, rad, turn
     , s, ms
-    , num, int 
-    , rgb, rgba, hsl, hsla, hex, currentcolor
+    , num, int
+    , rgb, rgba, hsl, hsla, hex, currentcolor, colorFunc
+    , srgb, srgbLinear, displayP3, a98RGB, prophotoRGB, rec2020, xyz, xyzD50, xyzD65
     , string, customIdent, url
     , insetRect, insetRect2, insetRect3, insetRect4
     , insetRound, insetRound2, insetRound3, insetRound4
@@ -602,7 +604,9 @@ functions let you define custom properties and selectors, respectively.
 
 ## Color
 
-@docs Color, ColorSupported, hex, rgb, rgba, hsl, hsla, currentcolor
+@docs Color, ColorSupported, hex, rgb, rgba, hsl, hsla, currentcolor, colorFunc
+
+@docs ColorSpace, srgb, srgbLinear, displayP3, a98RGB, prophotoRGB, rec2020, xyz, xyzD50, xyzD65
 
 ## Images & Shapes
 
@@ -2608,6 +2612,25 @@ type alias Color =
     ColorSupported {}
 
 
+{-| A type alias representing all of the possible colorspace options in a color() function.
+
+Note: These are not the same sets of keywords (or functions) that are used
+in `Css.Media.colorGamut`, even though some overlap in
+what color standards they refer to (This is just because they are named
+differently in the specs for each),
+-}
+type alias ColorSpace =
+    { srgb : Supported
+    , srgbLinear : Supported
+    , displayP3 : Supported
+    , a98RGB : Supported
+    , prophotoRGB : Supported
+    , rec2020 : Supported
+    , xyz : Supported
+    , xyzD50 : Supported
+    , xyzD65 : Supported
+    }
+
 {-| A type alias used to accept a [line-style](https://developer.mozilla.org/en-US/docs/Web/CSS/border-style#line-style)
 (without the `hidden`) value among other values.
 -}
@@ -3480,6 +3503,142 @@ value used by properties such as [`color`](#color), [`backgroundColor`](#backgro
 currentcolor : Value { provides | currentcolor : Supported }
 currentcolor =
     Value "currentcolor"
+
+
+{-| The [`color()`]() value function, usable anywhere a color value is supported.
+
+This lets you specify a colorspace for a color value, instead of the
+implied SRGB colorspace for standard functions.
+
+    backgroundColor <| colorFunc <| displayP3 1 0.5 0 (Just 0.5)
+-}
+colorFunc : 
+    Value ColorSpace
+    -> Float
+    -> Float
+    -> Float
+    -> Maybe Float
+    -> Value { provides | colorFunc : Supported }
+colorFunc (Value spaceVal) c1 c2 c3 alphaVal =
+    Value <|
+        "color("
+            ++ spaceVal
+            ++ ","
+            ++ String.fromFloat c1
+            ++ ","
+            ++ String.fromFloat c2
+            ++ ","
+            ++ String.fromFloat c3
+            ++ ( case alphaVal of
+                Nothing -> ""
+                Just a -> "," ++ String.fromFloat a 
+            )
+            ++ ")"
+
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+---------------------------- COLOR GAMUTS -----------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+
+
+{-| The `srgb` keyword used by `colorFunc`.
+
+    color <| colorFunc <| srgb 23 91 02 Nothing
+
+-}
+srgb : Value { provides | srgb : Supported }
+srgb =
+    Value "srgb"
+
+
+{-| The `srgb-linear` keyword used by `colorFunc`.
+
+    color <| colorFunc <| srgbLinear 23 91 02 Nothing
+
+-}
+srgbLinear : Value { provides | srgbLinear : Supported }
+srgbLinear =
+    Value "srgb-linear"
+
+
+{-| The `display-p3` keyword used by `colorFunc`.
+
+    color <| colorFunc <| displayP3 23 91 02 Nothing
+
+-}
+displayP3 : Value { provides | displayP3 : Supported }
+displayP3 =
+    Value "display-p3"
+
+
+{-| The `a98-rgb` keyword used by `colorFunc`.
+
+    color <| colorFunc <| a98RGB 23 91 02 Nothing
+
+-}
+a98RGB : Value { provides | a98RGB : Supported }
+a98RGB =
+    Value "a98-rgb"
+
+
+{-| The `prophoto-rgb` keyword used by `colorFunc`.
+
+    color <| colorFunc <| srgb 23 91 02 Nothing
+
+-}
+prophotoRGB : Value { provides | prophotoRGB : Supported }
+prophotoRGB =
+    Value "prophoto-rgb"
+
+
+{-| The `rec2020` keyword used by `colorFunc`.
+
+
+    color <| colorFunc <| rec2020 23 91 02 Nothing
+
+-}
+rec2020 : Value { provides | rec2020 : Supported }
+rec2020 =
+    Value "rec2020"
+
+
+{-| The `xyz` keyword used by `colorFunc`.
+
+    color <| colorFunc <| xyz 23 91 02 Nothing
+
+-}
+xyz : Value { provides | xyz : Supported }
+xyz =
+    Value "xyz"
+
+
+{-| The `srgb` keyword used by `colorFunc`.
+
+    color <| colorFunc <| srgb 23 91 02 Nothing
+
+-}
+xyzD50 : Value { provides | xyzD50 : Supported }
+xyzD50 =
+    Value "xyz-d50"
+
+
+{-| The `srgb` keyword used by `colorFunc`.
+
+    color <| colorFunc <| srgb 23 91 02 Nothing
+
+-}
+xyzD65 : Value { provides | xyzD65 : Supported }
+xyzD65 =
+    Value "xyz-d65"
 
 
 ------------------------------------------------------------------------
