@@ -532,6 +532,7 @@ module Css exposing
     , transitionDelay
     , transitionTimingFunction
     , transitionBehavior
+    , allowDiscrete
     , background_
     , backgroundColor_
     , backgroundPosition_
@@ -556,12 +557,10 @@ module Css exposing
     , borderTopRightRadius_
     , borderTopWidth_
     , borderWidth_
-    , bottom_
     , boxShadow_
     , caretColor_
     , clip_
     , clipPath_
-    , color_
     , columnCount_
     , columnGap_
     , columnRule_
@@ -570,7 +569,6 @@ module Css exposing
     , columnWidth_
     , columns_
     , filter_
-    , flex_
     , flexBasis_
     , flexGrow_
     , flexShrink_
@@ -584,7 +582,6 @@ module Css exposing
     , gridGap_
     , gridRowGap_
     , height_
-    , left_
     , letterSpacing_
     , lineHeight_
     , margin_
@@ -605,7 +602,6 @@ module Css exposing
     , offsetDistance_
     , offsetPath_
     , offsetRotate_
-    , opacity_
     , order_
     , outline_
     , outlineColor_
@@ -616,11 +612,9 @@ module Css exposing
     , paddingLeft_
     , paddingRight_
     , paddingTop_
-    , right_
     , tabSize_
     , textIndent_
     , textShadow_
-    , top_
     , transform_
     , transformOrigin_
     , verticalAlign_
@@ -24634,7 +24628,7 @@ gaps =
 
 type alias AnimatableSupported supported =
     { supported
-        | all : Supported
+        | all_ : Supported
         , background_ : Supported
         , backgroundColor_ : Supported
         , backgroundPosition_ : Supported
@@ -25191,17 +25185,12 @@ type alias TransitionBehaviorSupported supported =
 
 
 type alias TransitionBehavior =
-    {}
+    TransitionBehaviorSupported {}
 
 
 allowDiscrete : Value { provides | allowDiscrete : Supported }
 allowDiscrete =
     Value "allow-discrete"
-
-
-normal : Value { provides | normal : Supported }
-normal =
-    Value "normal"
 
 
 transitionProperty :
@@ -25246,7 +25235,7 @@ type alias TransitionConfig =
 
 defaultTransition : TransitionConfig
 defaultTransition =
-    { property = all
+    { property = all_
     , easingFunction = ease
     , duration = s 0
     , delay = s 0
@@ -25282,7 +25271,7 @@ transitionMany configs =
 transitionConfigToString : TransitionConfig -> String
 transitionConfigToString config =
     let
-        (Value property) =
+        (Value property_) =
             config.property
 
         (Value easingFunction) =
@@ -25297,7 +25286,7 @@ transitionConfigToString config =
         (Value behavior) =
             config.behavior
     in
-    property ++ easingFunction ++ duration ++ delay ++ behavior
+    property_ ++ easingFunction ++ duration ++ delay ++ behavior
 
 
 ------------------------------------------------------------------------
