@@ -521,8 +521,6 @@ module Css exposing
     -- Transitions
     , AnimatableSupported
     , Animatable
-    , TransitionBehaviorSupported
-    , TransitionBehavior
     , TransitionConfig
     , defaultTransition
     , transition
@@ -1662,6 +1660,113 @@ Other values you can use for flex item alignment:
 @docs strokeOrigin
 @docs strokeLinejoin, strokeLinejoin2, crop, arcs, miter, bevel
 @docs strokeDashJustify, compress, dashes, gaps
+
+
+------------------------------------------------------
+
+
+# Transition
+
+@docs Animatable, AnimatableSupported
+@docs TransitionConfig
+@docs defaultTransition
+@docs transition, transitionMany
+@docs transitionProperty
+@docs transitionDuration
+@docs transitionDelay
+@docs transitionTimingFunction
+@docs transitionBehavior
+@docs allowDiscrete
+@docs background_
+@docs backgroundColor_
+@docs backgroundPosition_
+@docs backgroundSize_
+@docs border_
+@docs borderBottom_
+@docs borderBottomColor_
+@docs borderBottomLeftRadius_
+@docs borderBottomRightRadius_
+@docs borderBottomWidth_
+@docs borderColor_
+@docs borderLeft_
+@docs borderLeftColor_
+@docs borderLeftWidth_
+@docs borderRadius_
+@docs borderRight_
+@docs borderRightColor_
+@docs borderRightWidth_
+@docs borderTop_
+@docs borderTopColor_
+@docs borderTopLeftRadius_
+@docs borderTopRightRadius_
+@docs borderTopWidth_
+@docs borderWidth_
+@docs boxShadow_
+@docs caretColor_
+@docs clip_
+@docs clipPath_
+@docs columnCount_
+@docs columnGap_
+@docs columnRule_
+@docs columnRuleColor_
+@docs columnRuleWidth_
+@docs columnWidth_
+@docs columns_
+@docs filter_
+@docs flexBasis_
+@docs flexGrow_
+@docs flexShrink_
+@docs font_
+@docs fontSize_
+@docs fontSizeAdjust_
+@docs fontStretch_
+@docs fontVariationSettings_
+@docs fontWeight_
+@docs gridColumnGap_
+@docs gridGap_
+@docs gridRowGap_
+@docs height_
+@docs letterSpacing_
+@docs lineHeight_
+@docs margin_
+@docs marginBottom_
+@docs marginLeft_
+@docs marginRight_
+@docs marginTop_
+@docs mask_
+@docs maskPosition_
+@docs maskSize_
+@docs maxHeight_
+@docs maxWidth_
+@docs minHeight_
+@docs minWidth_
+@docs objectPosition_
+@docs offset_
+@docs offsetAnchor_
+@docs offsetDistance_
+@docs offsetPath_
+@docs offsetRotate_
+@docs opacity__
+@docs order_
+@docs outline_
+@docs outlineColor_
+@docs outlineOffset_
+@docs outlineWidth_
+@docs padding_
+@docs paddingBottom_
+@docs paddingLeft_
+@docs paddingRight_
+@docs paddingTop_
+@docs tabSize_
+@docs textIndent_
+@docs textShadow_
+@docs transform_
+@docs transformOrigin_
+@docs verticalAlign_
+@docs visibility_
+@docs width_
+@docs wordSpacing_
+@docs zIndex_
 
 
 ------------------------------------------------------
@@ -24732,473 +24837,684 @@ type alias AnimatableSupported supported =
 type alias Animatable =
     AnimatableSupported {}
 
-
+{-| The `background` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 background_ : Value { provided | background_ : Supported }
 background_ =
     Value "background"
 
-
+{-| The `background-color` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 backgroundColor_ : Value { provided | backgroundColor_ : Supported }
 backgroundColor_ =
     Value "background-color"
 
-
+{-| The `background-position` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 backgroundPosition_ : Value { provided | backgroundPosition_ : Supported }
 backgroundPosition_ =
     Value "background-position"
 
-
+{-| The `background-size` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 backgroundSize_ : Value { provided | backgroundSize_ : Supported }
 backgroundSize_ =
     Value "background-size"
 
-
+{-| The `border` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 border_ : Value { provided | border_ : Supported }
 border_ =
     Value "border"
 
-
+{-| The `border-bottom` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 borderBottom_ : Value { provided | borderBottom_ : Supported }
 borderBottom_ =
     Value "border-bottom"
 
-
+{-| The `border-bottom-color` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 borderBottomColor_ : Value { provided | borderBottomColor_ : Supported }
 borderBottomColor_ =
     Value "border-bottom-color"
 
-
+{-| The `border-bottom-left-radius` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 borderBottomLeftRadius_ : Value { provided | borderBottomLeftRadius_ : Supported }
 borderBottomLeftRadius_ =
     Value "border-bottom-left-radius"
 
-
+{-| The `border-bottom-right-radius` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 borderBottomRightRadius_ : Value { provided | borderBottomRightRadius_ : Supported }
 borderBottomRightRadius_ =
     Value "border-bottom-right-radius"
 
-
+{-| The `border-bottom-width` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 borderBottomWidth_ : Value { provided | borderBottomWidth_ : Supported }
 borderBottomWidth_ =
     Value "border-bottom-width"
 
-
+{-| The `border-color` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 borderColor_ : Value { provided | borderColor_ : Supported }
 borderColor_ =
     Value "border-color"
 
-
+{-| The `border-left` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 borderLeft_ : Value { provided | borderLeft_ : Supported }
 borderLeft_ =
     Value "border-left"
 
-
+{-| The `border-left-color` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 borderLeftColor_ : Value { provided | borderLeftColor_ : Supported }
 borderLeftColor_ =
     Value "border-left-color"
 
-
+{-| The `border-left-width` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 borderLeftWidth_ : Value { provided | borderLeftWidth_ : Supported }
 borderLeftWidth_ =
     Value "border-left-width"
 
-
+{-| The `border-radius` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 borderRadius_ : Value { provided | borderRadius_ : Supported }
 borderRadius_ =
     Value "border-radius"
 
-
+{-| The `border-right` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 borderRight_ : Value { provided | borderRight_ : Supported }
 borderRight_ =
     Value "border-right"
 
-
+{-| The `border-right-color` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 borderRightColor_ : Value { provided | borderRightColor_ : Supported }
 borderRightColor_ =
     Value "border-right-color"
 
-
+{-| The `border-right-width` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 borderRightWidth_ : Value { provided | borderRightWidth_ : Supported }
 borderRightWidth_ =
     Value "border-right-width"
 
-
+{-| The `border-top` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 borderTop_ : Value { provided | borderTop_ : Supported }
 borderTop_ =
     Value "border-top"
 
-
+{-| The `border-top-color` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 borderTopColor_ : Value { provided | borderTopColor_ : Supported }
 borderTopColor_ =
     Value "border-top-color"
 
-
+{-| The `border-top-left-radius` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 borderTopLeftRadius_ : Value { provided | borderTopLeftRadius_ : Supported }
 borderTopLeftRadius_ =
     Value "border-top-left-radius"
 
-
+{-| The `border-top-right-radius` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 borderTopRightRadius_ : Value { provided | borderTopRightRadius_ : Supported }
 borderTopRightRadius_ =
     Value "border-top-right-radius"
 
-
+{-| The `border-top-width` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 borderTopWidth_ : Value { provided | borderTopWidth_ : Supported }
 borderTopWidth_ =
     Value "border-top-width"
 
-
+{-| The `border-width` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 borderWidth_ : Value { provided | borderWidth_ : Supported }
 borderWidth_ =
     Value "border-width"
 
-
+{-| The `box-shadow` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 boxShadow_ : Value { provided | boxShadow_ : Supported }
 boxShadow_ =
     Value "box-shadow"
 
-
+{-| The `caret-color` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 caretColor_ : Value { provided | caretColor_ : Supported }
 caretColor_ =
     Value "caret-color"
 
-
+{-| The `clip` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 clip_ : Value { provided | clip_ : Supported }
 clip_ =
     Value "clip"
 
-
+{-| The `clip-path` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 clipPath_ : Value { provided | clipPath_ : Supported }
 clipPath_ =
     Value "clip-path"
 
-
+{-| The `column-count` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 columnCount_ : Value { provided | columnCount_ : Supported }
 columnCount_ =
     Value "column-count"
 
-
+{-| The `column-gap` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 columnGap_ : Value { provided | columnGap_ : Supported }
 columnGap_ =
     Value "column-gap"
 
-
+{-| The `column-rule` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 columnRule_ : Value { provided | columnRule_ : Supported }
 columnRule_ =
     Value "column-rule"
 
-
+{-| The `column-rule-color` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 columnRuleColor_ : Value { provided | columnRuleColor_ : Supported }
 columnRuleColor_ =
     Value "column-rule-color"
 
-
+{-| The `column-rule-width` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 columnRuleWidth_ : Value { provided | columnRuleWidth_ : Supported }
 columnRuleWidth_ =
     Value "column-rule-width"
 
-
+{-| The `column-width` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 columnWidth_ : Value { provided | columnWidth_ : Supported }
 columnWidth_ =
     Value "column-width"
 
-
+{-| The `columns` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 columns_ : Value { provided | columns_ : Supported }
 columns_ =
     Value "columns"
 
-
+{-| The `filter` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 filter_ : Value { provided | filter_ : Supported }
 filter_ =
     Value "filter"
 
-
+{-| The `flex-basis` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 flexBasis_ : Value { provided | flexBasis_ : Supported }
 flexBasis_ =
     Value "flex-basis"
 
-
+{-| The `flex-grow` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 flexGrow_ : Value { provided | flexGrow_ : Supported }
 flexGrow_ =
     Value "flex-grow"
 
-
+{-| The `flex-shrink` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 flexShrink_ : Value { provided | flexShrink_ : Supported }
 flexShrink_ =
     Value "flex-shrink"
 
-
+{-| The `font` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 font_ : Value { provided | font_ : Supported }
 font_ =
     Value "font"
 
-
+{-| The `font-size` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 fontSize_ : Value { provided | fontSize_ : Supported }
 fontSize_ =
     Value "font-size"
 
-
+{-| The `font-size-adjust` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 fontSizeAdjust_ : Value { provided | fontSizeAdjust_ : Supported }
 fontSizeAdjust_ =
     Value "font-size-adjust"
 
-
+{-| The `font-stretch` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 fontStretch_ : Value { provided | fontStretch_ : Supported }
 fontStretch_ =
     Value "font-stretch"
 
-
+{-| The `font-variation-settings` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 fontVariationSettings_ : Value { provided | fontVariationSettings_ : Supported }
 fontVariationSettings_ =
     Value "font-variation-settings"
 
-
+{-| The `font-weight` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 fontWeight_ : Value { provided | fontWeight_ : Supported }
 fontWeight_ =
     Value "font-weight"
 
-
+{-| The `grid-column-gap` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 gridColumnGap_ : Value { provided | gridColumnGap_ : Supported }
 gridColumnGap_ =
     Value "grid-column-gap"
 
-
+{-| The `grid-gap` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 gridGap_ : Value { provided | gridGap_ : Supported }
 gridGap_ =
     Value "grid-gap"
 
-
+{-| The `grid-row-gap` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 gridRowGap_ : Value { provided | gridRowGap_ : Supported }
 gridRowGap_ =
     Value "grid-row-gap"
 
-
+{-| The `height` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 height_ : Value { provided | height_ : Supported }
 height_ =
     Value "height"
 
-
+{-| The `letter-spacing` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 letterSpacing_ : Value { provided | letterSpacing_ : Supported }
 letterSpacing_ =
     Value "letter-spacing"
 
-
+{-| The `line-height` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 lineHeight_ : Value { provided | lineHeight_ : Supported }
 lineHeight_ =
     Value "line-height"
 
-
+{-| The `margin` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 margin_ : Value { provided | margin_ : Supported }
 margin_ =
     Value "margin"
 
-
+{-| The `margin-bottom` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 marginBottom_ : Value { provided | marginBottom_ : Supported }
 marginBottom_ =
     Value "margin-bottom"
 
-
+{-| The `margin-left` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 marginLeft_ : Value { provided | marginLeft_ : Supported }
 marginLeft_ =
     Value "margin-left"
 
-
+{-| The `margin-right` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 marginRight_ : Value { provided | marginRight_ : Supported }
 marginRight_ =
     Value "margin-right"
 
-
+{-| The `margin-top` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 marginTop_ : Value { provided | marginTop_ : Supported }
 marginTop_ =
     Value "margin-top"
 
-
+{-| The `mask` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 mask_ : Value { provided | mask_ : Supported }
 mask_ =
     Value "mask"
 
-
+{-| The `mask-position` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 maskPosition_ : Value { provided | maskPosition_ : Supported }
 maskPosition_ =
     Value "mask-position"
 
-
+{-| The `mask-size` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 maskSize_ : Value { provided | maskSize_ : Supported }
 maskSize_ =
     Value "mask-size"
 
-
+{-| The `max-height` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 maxHeight_ : Value { provided | maxHeight_ : Supported }
 maxHeight_ =
     Value "max-height"
 
-
+{-| The `max-width` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 maxWidth_ : Value { provided | maxWidth_ : Supported }
 maxWidth_ =
     Value "max-width"
 
 
+{-| The `min-height` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 minHeight_ : Value { provided | minHeight_ : Supported }
 minHeight_ =
     Value "min-height"
 
 
+{-| The `min-width` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 minWidth_ : Value { provided | minWidth_ : Supported }
 minWidth_ =
     Value "min-width"
 
 
+{-| The `object-position` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 objectPosition_ : Value { provided | objectPosition_ : Supported }
 objectPosition_ =
     Value "object-position"
 
 
+{-| The `offset` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 offset_ : Value { provided | offset_ : Supported }
 offset_ =
     Value "offset"
 
 
+{-| The `offset-anchor` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 offsetAnchor_ : Value { provided | offsetAnchor_ : Supported }
 offsetAnchor_ =
     Value "offset-anchor"
 
 
+{-| The `offset-distance` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 offsetDistance_ : Value { provided | offsetDistance_ : Supported }
 offsetDistance_ =
     Value "offset-distance"
 
 
+{-| The `offset-path` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 offsetPath_ : Value { provided | offsetPath_ : Supported }
 offsetPath_ =
     Value "offset-path"
 
 
+{-| The `offset-rotate` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 offsetRotate_ : Value { provided | offsetRotate_ : Supported }
 offsetRotate_ =
     Value "offset-rotate"
 
 
+{-| The `opacity` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 opacity__ : Value { provided | opacity__ : Supported }
 opacity__ =
     Value "opacity"
 
 
+{-| The `order` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 order_ : Value { provided | order_ : Supported }
 order_ =
     Value "order"
 
 
+{-| The `outline` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 outline_ : Value { provided | outline_ : Supported }
 outline_ =
     Value "outline"
 
 
+{-| The `outline-color` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 outlineColor_ : Value { provided | outlineColor_ : Supported }
 outlineColor_ =
     Value "outline-color"
 
 
+{-| The `outline-offset` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 outlineOffset_ : Value { provided | outlineOffset_ : Supported }
 outlineOffset_ =
     Value "outline-offset"
 
 
+{-| The `outline-width` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 outlineWidth_ : Value { provided | outlineWidth_ : Supported }
 outlineWidth_ =
     Value "outline-width"
 
 
+{-| The `padding` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 padding_ : Value { provided | padding_ : Supported }
 padding_ =
     Value "padding"
 
 
+{-| The `padding-bottom` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 paddingBottom_ : Value { provided | paddingBottom_ : Supported }
 paddingBottom_ =
     Value "padding-bottom"
 
 
+{-| The `padding-left` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 paddingLeft_ : Value { provided | paddingLeft_ : Supported }
 paddingLeft_ =
     Value "padding-left"
 
 
+{-| The `padding-right` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 paddingRight_ : Value { provided | paddingRight_ : Supported }
 paddingRight_ =
     Value "padding-right"
 
 
+{-| The `padding-top` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 paddingTop_ : Value { provided | paddingTop_ : Supported }
 paddingTop_ =
     Value "padding-top"
 
 
+{-| The `tab-size` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 tabSize_ : Value { provided | tabSize_ : Supported }
 tabSize_ =
     Value "tab-size"
 
 
+{-| The `text-indent` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 textIndent_ : Value { provided | textIndent_ : Supported }
 textIndent_ =
     Value "text-indent"
 
 
+{-| The `text-shadow` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 textShadow_ : Value { provided | textShadow_ : Supported }
 textShadow_ =
     Value "text-shadow"
 
 
+{-| The `transform` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 transform_ : Value { provided | transform_ : Supported }
 transform_ =
     Value "transform"
 
 
+{-| The `transform-origin` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 transformOrigin_ : Value { provided | transformOrigin_ : Supported }
 transformOrigin_ =
     Value "transform-origin"
 
 
+{-| The `vertical-align` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 verticalAlign_ : Value { provided | verticalAlign_ : Supported }
 verticalAlign_ =
     Value "vertical-align"
 
 
+{-| The `visibility` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 visibility_ : Value { provided | visibility_ : Supported }
 visibility_ =
     Value "visibility"
 
 
+{-| The `width` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 width_ : Value { provided | width_ : Supported }
 width_ =
     Value "width"
 
 
+{-| The `word-spacing` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 wordSpacing_ : Value { provided | wordSpacing_ : Supported }
 wordSpacing_ =
     Value "word-spacing"
 
 
+{-| The `z-index` value used by properties such as [`transition`](#transition),
+and [`transition-property`](#transitionProperty).
+-}
 zIndex_ : Value { provided | zIndex_ : Supported }
 zIndex_ =
     Value "z-index"
 
 
-type alias TransitionBehaviorSupported supported =
-    { supported
-        | allowDiscrete : Supported
-        , normal : Supported
-    }
-
-
-type alias TransitionBehavior =
-    TransitionBehaviorSupported {}
-
-
+{-| The `allow-discrete` value used by properties such as [`transition`](#transition),
+and [`transition-behavior`](#transitionBehavior).
+-}
 allowDiscrete : Value { provides | allowDiscrete : Supported }
 allowDiscrete =
     Value "allow-discrete"
 
 
+{-| The [`transition-property`](https://css-tricks.com/almanac/properties/t/transition-property/) property.
+
+    transition-property initial
+
+    transition-property none
+
+    transition-property all
+
+    transition-property margin-right
+-}
 transitionProperty :
     BaseValue
         (AnimatableSupported
@@ -25210,45 +25526,97 @@ transitionProperty (Value val) =
     appendProperty ("transition-property:" ++ val)
 
 
-transitionDuration : BaseValue Time -> Style
-transitionDuration (Value val) =
-    appendProperty ("transition-duration:" ++ val)
+{-| The [`transition-timing-function`](https://css-tricks.com/almanac/properties/t/transition-timing-function/) property.
 
+    transition-timing-function ease-out
 
-transitionDelay : BaseValue Time -> Style
-transitionDelay (Value val) =
-    appendProperty ("transition-delay:" ++ val)
-
-
-transitionBehavior : BaseValue TransitionBehavior -> Style
-transitionBehavior (Value val) =
-    appendProperty ("transition-behavior:" ++ val)
-
-
+    transition-timing-function linear
+-}
 transitionTimingFunction : BaseValue EasingFunction -> Style
 transitionTimingFunction (Value val) =
     appendProperty ("transition-timing-function:" ++ val)
 
 
+{-| The [`transition-duration`](https://css-tricks.com/almanac/properties/t/transition-duration/) property.
+
+    transition-duration 2.5s
+
+    transition-duration 400ms
+-}
+transitionDuration : BaseValue Time -> Style
+transitionDuration (Value val) =
+    appendProperty ("transition-duration:" ++ val)
+
+
+{-| The [`transition-delay`](https://css-tricks.com/almanac/properties/t/transition-delay/) property.
+
+    transition-delay 2.5s
+
+    transition-delay 400ms
+-}
+transitionDelay : BaseValue Time -> Style
+transitionDelay (Value val) =
+    appendProperty ("transition-delay:" ++ val)
+
+
+{-| The [`transition-behavior`](https://css-tricks.com/almanac/properties/t/transition-behavior/) property.
+
+    transition-behavior normal
+
+    transition-behavior allowDiscrete
+-}
+transitionBehavior :
+    BaseValue
+        { supported
+            | normal : Supported
+            , allowDiscrete : Supported
+        }
+    -> Style
+transitionBehavior (Value val) =
+    appendProperty ("transition-behavior:" ++ val)
+
+
+{-| Configuration for [`transition`](#transition).
+-}
 type alias TransitionConfig =
     { property : Value Animatable
-    , easingFunction : Value EasingFunction
+    , timingFunction : Value EasingFunction
     , duration : Value Time
     , delay : Value Time
-    , behavior : Value TransitionBehavior
+    , behavior :
+        Value
+            { normal : Supported
+            , allowDiscrete : Supported
+            }
     }
 
 
+{-| Default [`transition`](#transition) configuration.
+
+It is equivalent to the following CSS:
+
+    transition: all ease 0s 0s normal;
+
+-}
 defaultTransition : TransitionConfig
 defaultTransition =
     { property = all_
-    , easingFunction = ease
+    , timingFunction = ease
     , duration = s 0
     , delay = s 0
     , behavior = normal
     }
 
 
+{-| The [`transition`](https://css-tricks.com/almanac/properties/t/transition/) property.
+
+    transition initial
+
+    transition none
+
+For defining transitions look at [`transitionMany`](#transitionMany).
+
+-}
 transition :
     BaseValue
         { none : Supported
@@ -25258,6 +25626,30 @@ transition (Value val) =
     appendProperty ("transition:" ++ val)
 
 
+{-| Sets [`transition`](https://css-tricks.com/almanac/properties/t/transition/).
+
+If you give an empty list, the value will be `none`. This is to make it impossible for it
+to have no values in the output.
+
+    transitionMany [] -- "transition: none"
+
+    -- "transition: margin-right ease-out 4s 2s allow-discrete"
+    button
+        [ css
+            [ transitionMany
+                [ { defaultTransition
+                    | property = marginRight_
+                    , easingFunction = easeOut
+                    , duration = s 4
+                    , delay = s 2
+                    , behavior = allowDiscrete
+                  }
+                ]
+            ]
+        ]
+        [ text "Zap!" ]
+
+-}
 transitionMany : List TransitionConfig -> Style
 transitionMany configs =
     let
@@ -25280,8 +25672,8 @@ transitionConfigToString config =
         (Value property_) =
             config.property
 
-        (Value easingFunction) =
-            config.easingFunction
+        (Value timingFunction) =
+            config.timingFunction
 
         (Value duration) =
             config.duration
@@ -25292,7 +25684,7 @@ transitionConfigToString config =
         (Value behavior) =
             config.behavior
     in
-    property_ ++ " " ++ easingFunction ++ " " ++ duration ++ " " ++ delay ++ " " ++ behavior
+    property_ ++ " " ++ timingFunction ++ " " ++ duration ++ " " ++ delay ++ " " ++ behavior
 
 
 ------------------------------------------------------------------------

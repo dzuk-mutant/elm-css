@@ -141,7 +141,7 @@ all =
             , ( transitionMany
                     [ { defaultTransition
                         | property = marginRight_
-                        , easingFunction = easeOut
+                        , timingFunction = easeOut
                         , duration = s 4
                         , delay = s 2
                         , behavior = allowDiscrete
