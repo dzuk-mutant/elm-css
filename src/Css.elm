@@ -518,6 +518,117 @@ module Css exposing
     , strokeLinejoin, strokeLinejoin2, crop, arcs, miter, bevel
     , strokeDashJustify, compress, dashes, gaps
 
+    -- Transitions
+    , AnimatableSupported
+    , Animatable
+    , TransitionBehaviorSupported
+    , TransitionBehavior
+    , TransitionConfig
+    , defaultTransition
+    , transition
+    , transitionMany
+    , transitionProperty
+    , transitionDuration
+    , transitionDelay
+    , transitionTimingFunction
+    , transitionBehavior
+    , background_
+    , backgroundColor_
+    , backgroundPosition_
+    , backgroundSize_
+    , border_
+    , borderBottom_
+    , borderBottomColor_
+    , borderBottomLeftRadius_
+    , borderBottomRightRadius_
+    , borderBottomWidth_
+    , borderColor_
+    , borderLeft_
+    , borderLeftColor_
+    , borderLeftWidth_
+    , borderRadius_
+    , borderRight_
+    , borderRightColor_
+    , borderRightWidth_
+    , borderTop_
+    , borderTopColor_
+    , borderTopLeftRadius_
+    , borderTopRightRadius_
+    , borderTopWidth_
+    , borderWidth_
+    , bottom_
+    , boxShadow_
+    , caretColor_
+    , clip_
+    , clipPath_
+    , color_
+    , columnCount_
+    , columnGap_
+    , columnRule_
+    , columnRuleColor_
+    , columnRuleWidth_
+    , columnWidth_
+    , columns_
+    , filter_
+    , flex_
+    , flexBasis_
+    , flexGrow_
+    , flexShrink_
+    , font_
+    , fontSize_
+    , fontSizeAdjust_
+    , fontStretch_
+    , fontVariationSettings_
+    , fontWeight_
+    , gridColumnGap_
+    , gridGap_
+    , gridRowGap_
+    , height_
+    , left_
+    , letterSpacing_
+    , lineHeight_
+    , margin_
+    , marginBottom_
+    , marginLeft_
+    , marginRight_
+    , marginTop_
+    , mask_
+    , maskPosition_
+    , maskSize_
+    , maxHeight_
+    , maxWidth_
+    , minHeight_
+    , minWidth_
+    , objectPosition_
+    , offset_
+    , offsetAnchor_
+    , offsetDistance_
+    , offsetPath_
+    , offsetRotate_
+    , opacity_
+    , order_
+    , outline_
+    , outlineColor_
+    , outlineOffset_
+    , outlineWidth_
+    , padding_
+    , paddingBottom_
+    , paddingLeft_
+    , paddingRight_
+    , paddingTop_
+    , right_
+    , tabSize_
+    , textIndent_
+    , textShadow_
+    , top_
+    , transform_
+    , transformOrigin_
+    , verticalAlign_
+    , visibility_
+    , width_
+    , wordSpacing_
+    , zIndex_
+
     -- WebKit stuff that's standardised for legacy support
     , lineClamp
     )
@@ -20774,7 +20885,7 @@ defaultBoxShadow =
 
     boxShadow none
 
-For defining shadows look at [`boxShadowsMany`](#boxShadowsMany).
+For defining shadows look at [`boxShadowMany`](#boxShadowMany).
 
 -}
 boxShadow : BaseValue { none : Supported } -> Style
@@ -24504,6 +24615,689 @@ dashes =
 gaps : Value { provides | gaps : Supported }
 gaps =
     Value "gaps"
+
+
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+----------------------------- TRANSITIONS ------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+
+
+type alias AnimatableSupported supported =
+    { supported
+        | all : Supported
+        , background_ : Supported
+        , backgroundColor_ : Supported
+        , backgroundPosition_ : Supported
+        , backgroundSize_ : Supported
+        , border_ : Supported
+        , borderBottom_ : Supported
+        , borderBottomColor_ : Supported
+        , borderBottomLeftRadius_ : Supported
+        , borderBottomRightRadius_ : Supported
+        , borderBottomWidth_ : Supported
+        , borderColor_ : Supported
+        , borderLeft_ : Supported
+        , borderLeftColor_ : Supported
+        , borderLeftWidth_ : Supported
+        , borderRadius_ : Supported
+        , borderRight_ : Supported
+        , borderRightColor_ : Supported
+        , borderRightWidth_ : Supported
+        , borderTop_ : Supported
+        , borderTopColor_ : Supported
+        , borderTopLeftRadius_ : Supported
+        , borderTopRightRadius_ : Supported
+        , borderTopWidth_ : Supported
+        , borderWidth_ : Supported
+        , bottom_ : Supported
+        , boxShadow_ : Supported
+        , caretColor_ : Supported
+        , clip_ : Supported
+        , clipPath_ : Supported
+        , color_ : Supported
+        , columnCount_ : Supported
+        , columnGap_ : Supported
+        , columnRule_ : Supported
+        , columnRuleColor_ : Supported
+        , columnRuleWidth_ : Supported
+        , columnWidth_ : Supported
+        , columns_ : Supported
+        , filter_ : Supported
+        , flex_ : Supported
+        , flexBasis_ : Supported
+        , flexGrow_ : Supported
+        , flexShrink_ : Supported
+        , font_ : Supported
+        , fontSize_ : Supported
+        , fontSizeAdjust_ : Supported
+        , fontStretch_ : Supported
+        , fontVariationSettings_ : Supported
+        , fontWeight_ : Supported
+        , gridColumnGap_ : Supported
+        , gridGap_ : Supported
+        , gridRowGap_ : Supported
+        , height_ : Supported
+        , left_ : Supported
+        , letterSpacing_ : Supported
+        , lineHeight_ : Supported
+        , margin_ : Supported
+        , marginBottom_ : Supported
+        , marginLeft_ : Supported
+        , marginRight_ : Supported
+        , marginTop_ : Supported
+        , mask_ : Supported
+        , maskPosition_ : Supported
+        , maskSize_ : Supported
+        , maxHeight_ : Supported
+        , maxWidth_ : Supported
+        , minHeight_ : Supported
+        , minWidth_ : Supported
+        , objectPosition_ : Supported
+        , offset_ : Supported
+        , offsetAnchor_ : Supported
+        , offsetDistance_ : Supported
+        , offsetPath_ : Supported
+        , offsetRotate_ : Supported
+        , opacity_ : Supported
+        , order_ : Supported
+        , outline_ : Supported
+        , outlineColor_ : Supported
+        , outlineOffset_ : Supported
+        , outlineWidth_ : Supported
+        , padding_ : Supported
+        , paddingBottom_ : Supported
+        , paddingLeft_ : Supported
+        , paddingRight_ : Supported
+        , paddingTop_ : Supported
+        , right_ : Supported
+        , tabSize_ : Supported
+        , textIndent_ : Supported
+        , textShadow_ : Supported
+        , top_ : Supported
+        , transform_ : Supported
+        , transformOrigin_ : Supported
+        , verticalAlign_ : Supported
+        , visibility_ : Supported
+        , width_ : Supported
+        , wordSpacing_ : Supported
+        , zIndex_ : Supported
+    }
+
+
+type alias Animatable =
+    AnimatableSupported {}
+
+
+background_ : Value { provided | background_ : Supported }
+background_ =
+    Value "background"
+
+
+backgroundColor_ : Value { provided | backgroundColor_ : Supported }
+backgroundColor_ =
+    Value "background-color"
+
+
+backgroundPosition_ : Value { provided | backgroundPosition_ : Supported }
+backgroundPosition_ =
+    Value "background-position"
+
+
+backgroundSize_ : Value { provided | backgroundSize_ : Supported }
+backgroundSize_ =
+    Value "background-size"
+
+
+border_ : Value { provided | border_ : Supported }
+border_ =
+    Value "border"
+
+
+borderBottom_ : Value { provided | borderBottom_ : Supported }
+borderBottom_ =
+    Value "border-bottom"
+
+
+borderBottomColor_ : Value { provided | borderBottomColor_ : Supported }
+borderBottomColor_ =
+    Value "border-bottom-color"
+
+
+borderBottomLeftRadius_ : Value { provided | borderBottomLeftRadius_ : Supported }
+borderBottomLeftRadius_ =
+    Value "border-bottom-left-radius"
+
+
+borderBottomRightRadius_ : Value { provided | borderBottomRightRadius_ : Supported }
+borderBottomRightRadius_ =
+    Value "border-bottom-right-radius"
+
+
+borderBottomWidth_ : Value { provided | borderBottomWidth_ : Supported }
+borderBottomWidth_ =
+    Value "border-bottom-width"
+
+
+borderColor_ : Value { provided | borderColor_ : Supported }
+borderColor_ =
+    Value "border-color"
+
+
+borderLeft_ : Value { provided | borderLeft_ : Supported }
+borderLeft_ =
+    Value "border-left"
+
+
+borderLeftColor_ : Value { provided | borderLeftColor_ : Supported }
+borderLeftColor_ =
+    Value "border-left-color"
+
+
+borderLeftWidth_ : Value { provided | borderLeftWidth_ : Supported }
+borderLeftWidth_ =
+    Value "border-left-width"
+
+
+borderRadius_ : Value { provided | borderRadius_ : Supported }
+borderRadius_ =
+    Value "border-radius"
+
+
+borderRight_ : Value { provided | borderRight_ : Supported }
+borderRight_ =
+    Value "border-right"
+
+
+borderRightColor_ : Value { provided | borderRightColor_ : Supported }
+borderRightColor_ =
+    Value "border-right-color"
+
+
+borderRightWidth_ : Value { provided | borderRightWidth_ : Supported }
+borderRightWidth_ =
+    Value "border-right-width"
+
+
+borderTop_ : Value { provided | borderTop_ : Supported }
+borderTop_ =
+    Value "border-top"
+
+
+borderTopColor_ : Value { provided | borderTopColor_ : Supported }
+borderTopColor_ =
+    Value "border-top-color"
+
+
+borderTopLeftRadius_ : Value { provided | borderTopLeftRadius_ : Supported }
+borderTopLeftRadius_ =
+    Value "border-top-left-radius"
+
+
+borderTopRightRadius_ : Value { provided | borderTopRightRadius_ : Supported }
+borderTopRightRadius_ =
+    Value "border-top-right-radius"
+
+
+borderTopWidth_ : Value { provided | borderTopWidth_ : Supported }
+borderTopWidth_ =
+    Value "border-top-width"
+
+
+borderWidth_ : Value { provided | borderWidth_ : Supported }
+borderWidth_ =
+    Value "border-width"
+
+
+boxShadow_ : Value { provided | boxShadow_ : Supported }
+boxShadow_ =
+    Value "box-shadow"
+
+
+caretColor_ : Value { provided | caretColor_ : Supported }
+caretColor_ =
+    Value "caret-color"
+
+
+clip_ : Value { provided | clip_ : Supported }
+clip_ =
+    Value "clip"
+
+
+clipPath_ : Value { provided | clipPath_ : Supported }
+clipPath_ =
+    Value "clip-path"
+
+
+columnCount_ : Value { provided | columnCount_ : Supported }
+columnCount_ =
+    Value "column-count"
+
+
+columnGap_ : Value { provided | columnGap_ : Supported }
+columnGap_ =
+    Value "column-gap"
+
+
+columnRule_ : Value { provided | columnRule_ : Supported }
+columnRule_ =
+    Value "column-rule"
+
+
+columnRuleColor_ : Value { provided | columnRuleColor_ : Supported }
+columnRuleColor_ =
+    Value "column-rule-color"
+
+
+columnRuleWidth_ : Value { provided | columnRuleWidth_ : Supported }
+columnRuleWidth_ =
+    Value "column-rule-width"
+
+
+columnWidth_ : Value { provided | columnWidth_ : Supported }
+columnWidth_ =
+    Value "column-width"
+
+
+columns_ : Value { provided | columns_ : Supported }
+columns_ =
+    Value "columns"
+
+
+filter_ : Value { provided | filter_ : Supported }
+filter_ =
+    Value "filter"
+
+
+flexBasis_ : Value { provided | flexBasis_ : Supported }
+flexBasis_ =
+    Value "flex-basis"
+
+
+flexGrow_ : Value { provided | flexGrow_ : Supported }
+flexGrow_ =
+    Value "flex-grow"
+
+
+flexShrink_ : Value { provided | flexShrink_ : Supported }
+flexShrink_ =
+    Value "flex-shrink"
+
+
+font_ : Value { provided | font_ : Supported }
+font_ =
+    Value "font"
+
+
+fontSize_ : Value { provided | fontSize_ : Supported }
+fontSize_ =
+    Value "font-size"
+
+
+fontSizeAdjust_ : Value { provided | fontSizeAdjust_ : Supported }
+fontSizeAdjust_ =
+    Value "font-size-adjust"
+
+
+fontStretch_ : Value { provided | fontStretch_ : Supported }
+fontStretch_ =
+    Value "font-stretch"
+
+
+fontVariationSettings_ : Value { provided | fontVariationSettings_ : Supported }
+fontVariationSettings_ =
+    Value "font-variation-settings"
+
+
+fontWeight_ : Value { provided | fontWeight_ : Supported }
+fontWeight_ =
+    Value "font-weight"
+
+
+gridColumnGap_ : Value { provided | gridColumnGap_ : Supported }
+gridColumnGap_ =
+    Value "grid-column-gap"
+
+
+gridGap_ : Value { provided | gridGap_ : Supported }
+gridGap_ =
+    Value "grid-gap"
+
+
+gridRowGap_ : Value { provided | gridRowGap_ : Supported }
+gridRowGap_ =
+    Value "grid-row-gap"
+
+
+height_ : Value { provided | height_ : Supported }
+height_ =
+    Value "height"
+
+
+letterSpacing_ : Value { provided | letterSpacing_ : Supported }
+letterSpacing_ =
+    Value "letter-spacing"
+
+
+lineHeight_ : Value { provided | lineHeight_ : Supported }
+lineHeight_ =
+    Value "line-height"
+
+
+margin_ : Value { provided | margin_ : Supported }
+margin_ =
+    Value "margin"
+
+
+marginBottom_ : Value { provided | marginBottom_ : Supported }
+marginBottom_ =
+    Value "margin-bottom"
+
+
+marginLeft_ : Value { provided | marginLeft_ : Supported }
+marginLeft_ =
+    Value "margin-left"
+
+
+marginRight_ : Value { provided | marginRight_ : Supported }
+marginRight_ =
+    Value "margin-right"
+
+
+marginTop_ : Value { provided | marginTop_ : Supported }
+marginTop_ =
+    Value "margin-top"
+
+
+mask_ : Value { provided | mask_ : Supported }
+mask_ =
+    Value "mask"
+
+
+maskPosition_ : Value { provided | maskPosition_ : Supported }
+maskPosition_ =
+    Value "mask-position"
+
+
+maskSize_ : Value { provided | maskSize_ : Supported }
+maskSize_ =
+    Value "mask-size"
+
+
+maxHeight_ : Value { provided | maxHeight_ : Supported }
+maxHeight_ =
+    Value "max-height"
+
+
+maxWidth_ : Value { provided | maxWidth_ : Supported }
+maxWidth_ =
+    Value "max-width"
+
+
+minHeight_ : Value { provided | minHeight_ : Supported }
+minHeight_ =
+    Value "min-height"
+
+
+minWidth_ : Value { provided | minWidth_ : Supported }
+minWidth_ =
+    Value "min-width"
+
+
+objectPosition_ : Value { provided | objectPosition_ : Supported }
+objectPosition_ =
+    Value "object-position"
+
+
+offset_ : Value { provided | offset_ : Supported }
+offset_ =
+    Value "offset"
+
+
+offsetAnchor_ : Value { provided | offsetAnchor_ : Supported }
+offsetAnchor_ =
+    Value "offset-anchor"
+
+
+offsetDistance_ : Value { provided | offsetDistance_ : Supported }
+offsetDistance_ =
+    Value "offset-distance"
+
+
+offsetPath_ : Value { provided | offsetPath_ : Supported }
+offsetPath_ =
+    Value "offset-path"
+
+
+offsetRotate_ : Value { provided | offsetRotate_ : Supported }
+offsetRotate_ =
+    Value "offset-rotate"
+
+
+order_ : Value { provided | order_ : Supported }
+order_ =
+    Value "order"
+
+
+outline_ : Value { provided | outline_ : Supported }
+outline_ =
+    Value "outline"
+
+
+outlineColor_ : Value { provided | outlineColor_ : Supported }
+outlineColor_ =
+    Value "outline-color"
+
+
+outlineOffset_ : Value { provided | outlineOffset_ : Supported }
+outlineOffset_ =
+    Value "outline-offset"
+
+
+outlineWidth_ : Value { provided | outlineWidth_ : Supported }
+outlineWidth_ =
+    Value "outline-width"
+
+
+padding_ : Value { provided | padding_ : Supported }
+padding_ =
+    Value "padding"
+
+
+paddingBottom_ : Value { provided | paddingBottom_ : Supported }
+paddingBottom_ =
+    Value "padding-bottom"
+
+
+paddingLeft_ : Value { provided | paddingLeft_ : Supported }
+paddingLeft_ =
+    Value "padding-left"
+
+
+paddingRight_ : Value { provided | paddingRight_ : Supported }
+paddingRight_ =
+    Value "padding-right"
+
+
+paddingTop_ : Value { provided | paddingTop_ : Supported }
+paddingTop_ =
+    Value "padding-top"
+
+
+tabSize_ : Value { provided | tabSize_ : Supported }
+tabSize_ =
+    Value "tab-size"
+
+
+textIndent_ : Value { provided | textIndent_ : Supported }
+textIndent_ =
+    Value "text-indent"
+
+
+textShadow_ : Value { provided | textShadow_ : Supported }
+textShadow_ =
+    Value "text-shadow"
+
+
+transform_ : Value { provided | transform_ : Supported }
+transform_ =
+    Value "transform"
+
+
+transformOrigin_ : Value { provided | transformOrigin_ : Supported }
+transformOrigin_ =
+    Value "transform-origin"
+
+
+verticalAlign_ : Value { provided | verticalAlign_ : Supported }
+verticalAlign_ =
+    Value "vertical-align"
+
+
+visibility_ : Value { provided | visibility_ : Supported }
+visibility_ =
+    Value "visibility"
+
+
+width_ : Value { provided | width_ : Supported }
+width_ =
+    Value "width"
+
+
+wordSpacing_ : Value { provided | wordSpacing_ : Supported }
+wordSpacing_ =
+    Value "word-spacing"
+
+
+zIndex_ : Value { provided | zIndex_ : Supported }
+zIndex_ =
+    Value "z-index"
+
+
+type alias TransitionBehaviorSupported supported =
+    { supported
+        | allowDiscrete : Supported
+        , normal : Supported
+    }
+
+
+type alias TransitionBehavior =
+    {}
+
+
+allowDiscrete : Value { provides | allowDiscrete : Supported }
+allowDiscrete =
+    Value "allow-discrete"
+
+
+normal : Value { provides | normal : Supported }
+normal =
+    Value "normal"
+
+
+transitionProperty :
+    BaseValue
+        (AnimatableSupported
+            { none : Supported
+            }
+        )
+    -> Style
+transitionProperty (Value val) =
+    appendProperty ("transition-property: " ++ val)
+
+
+transitionDuration : BaseValue Time -> Style
+transitionDuration (Value val) =
+    appendProperty ("transition-duration:" ++ val)
+
+
+transitionDelay : BaseValue Time -> Style
+transitionDelay (Value val) =
+    appendProperty ("transition-delay:" ++ val)
+
+
+transitionBehavior : BaseValue TransitionBehavior -> Style
+transitionBehavior (Value val) =
+    appendProperty ("transition-behavior:" ++ val)
+
+
+transitionTimingFunction : BaseValue EasingFunction -> Style
+transitionTimingFunction (Value val) =
+    appendProperty ("transition-timing-function:" ++ val)
+
+
+type alias TransitionConfig =
+    { property : Value Animatable
+    , easingFunction : Value EasingFunction
+    , duration : Value Time
+    , delay : Value Time
+    , behavior : Value TransitionBehavior
+    }
+
+
+defaultTransition : TransitionConfig
+defaultTransition =
+    { property = all
+    , easingFunction = ease
+    , duration = s 0
+    , delay = s 0
+    , behavior = normal
+    }
+
+
+transition :
+    BaseValue
+        { none : Supported
+        }
+    -> Style
+transition (Value val) =
+    appendProperty ("transition: " ++ val)
+
+
+transitionMany : List TransitionConfig -> Style
+transitionMany configs =
+    let
+        value =
+            case configs of
+                [] ->
+                    "none"
+
+                _ ->
+                    configs
+                        |> List.map transitionConfigToString
+                        |> String.join ", "
+    in
+    appendProperty ("transition:" ++ value)
+
+
+transitionConfigToString : TransitionConfig -> String
+transitionConfigToString config =
+    let
+        (Value property) =
+            config.property
+
+        (Value easingFunction) =
+            config.easingFunction
+
+        (Value duration) =
+            config.duration
+
+        (Value delay) =
+            config.delay
+
+        (Value behavior) =
+            config.behavior
+    in
+    property ++ easingFunction ++ duration ++ delay ++ behavior
 
 
 ------------------------------------------------------------------------
