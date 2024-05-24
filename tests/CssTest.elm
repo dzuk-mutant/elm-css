@@ -31,6 +31,7 @@ module CssTest exposing
     , minmax
     , resolution
     , filterFunction
+    , easingFunction
     )
 
 {-| Module for creating large-scale, fully comprehensive CSS function/value tests.
@@ -1518,3 +1519,23 @@ filterFunction =
         
         
         ]
+
+
+easingFunction : List ( Value (EasingFunctionSupported supported), String )
+easingFunction =
+    [ ( linear, "linear" )
+    , ( ease, "ease" )
+    , ( easeIn, "ease-in" )
+    , ( easeOut, "ease-out" )
+    , ( easeInOut, "ease-in-out" )
+    , ( cubicBezier 0.3 2 0.8 5, "cubic-bezier(0.3,2,0.8,5)" )
+    , ( stepStart, "step-start" )
+    , ( stepEnd, "step-end" )
+    , ( steps 4, "steps(4)" )
+    , ( steps2 4 jumpStart, "steps(4,jump-start)" )
+    , ( steps2 4 jumpEnd, "steps(4,jump-end)" )
+    , ( steps2 4 jumpNone, "steps(4,jump-none)" )
+    , ( steps2 4 jumpBoth, "steps(4,jump-both)" )
+    , ( steps2 4 start, "steps(4,start)" )
+    , ( steps2 4 end, "steps(4,end)" )
+    ]
