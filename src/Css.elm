@@ -20880,7 +20880,7 @@ defaultBoxShadow =
 
     boxShadow none
 
-For defining shadows look at [`boxShadowMany`](#boxShadowMany).
+For defining shadows look at [`boxShadowsMany`](#boxShadowsMany).
 
 -}
 boxShadow : BaseValue { none : Supported } -> Style
