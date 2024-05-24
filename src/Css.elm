@@ -602,6 +602,7 @@ module Css exposing
     , offsetDistance_
     , offsetPath_
     , offsetRotate_
+    , opacity__
     , order_
     , outline_
     , outlineColor_
@@ -24702,7 +24703,7 @@ type alias AnimatableSupported supported =
         , offsetDistance_ : Supported
         , offsetPath_ : Supported
         , offsetRotate_ : Supported
-        , opacity_ : Supported
+        , opacity__ : Supported
         , order_ : Supported
         , outline_ : Supported
         , outlineColor_ : Supported
@@ -25077,6 +25078,11 @@ offsetRotate_ =
     Value "offset-rotate"
 
 
+opacity__ : Value { provided | opacity__ : Supported }
+opacity__ =
+    Value "opacity"
+
+
 order_ : Value { provided | order_ : Supported }
 order_ =
     Value "order"
@@ -25201,7 +25207,7 @@ transitionProperty :
         )
     -> Style
 transitionProperty (Value val) =
-    appendProperty ("transition-property: " ++ val)
+    appendProperty ("transition-property:" ++ val)
 
 
 transitionDuration : BaseValue Time -> Style
@@ -25249,7 +25255,7 @@ transition :
         }
     -> Style
 transition (Value val) =
-    appendProperty ("transition: " ++ val)
+    appendProperty ("transition:" ++ val)
 
 
 transitionMany : List TransitionConfig -> Style
@@ -25286,7 +25292,7 @@ transitionConfigToString config =
         (Value behavior) =
             config.behavior
     in
-    property_ ++ easingFunction ++ duration ++ delay ++ behavior
+    property_ ++ " " ++ easingFunction ++ " " ++ duration ++ " " ++ delay ++ " " ++ behavior
 
 
 ------------------------------------------------------------------------
